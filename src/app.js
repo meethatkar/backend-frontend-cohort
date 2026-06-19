@@ -37,6 +37,19 @@ app.post("/profile",async (req, res)=>{
     })
 })
 
+app.put("/profile/:id", async (req,res)=>{
+    const {id} = req.params;
+    const updatedData = await accModel.findByIdAndUpdate(
+        id,
+        req.body,
+        {new: true}
+    )
+    res.status(200).json({
+        "message": "data updated successfully",
+        "data": updatedData
+    })
+})
+
 app.use("*name", (req, res)=>{
     res.sendFile(path.join(__dirname, "..", "./public/index.html"))
 })
